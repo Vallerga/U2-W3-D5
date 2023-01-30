@@ -1,59 +1,138 @@
+async function firstfetch() {
+  // fetch used on section one
+  const fetchSec1 = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=queen");
+  const jsonResfirst = await fetchSec1.json();
+
+
+  // generate random card
+  const randomNum = [];
+for (i = 0; i < 4; i++) {
+  let checker = Math.floor(Math.random() * 24); // <--- potrei rendere dinamico il numero in base al fetch mettendo una variabile al post di 24
+  while (randomNum.includes(checker)) {
+    checker = Math.floor(Math.random() * 24); // <--- potrei rendere dinamico il numero in base al fetch mettendo una variabile al post di 24
+  }
+  randomNum[i] = checker;
+}
+console.log(randomNum);
+
+
+  // card 1
+  const img1 = document.querySelector(".firstCol img");
+  img1.src = jsonResfirst.data[randomNum[0]].album.cover_big; // load img
+  const album1 = document.querySelector(".firstCol h5");
+  album1.innerText = jsonResfirst.data[randomNum[0]].album.title; // load album
+  const author1 = document.querySelector(".firstCol p");
+  author1.innerText = jsonResfirst.data[randomNum[0]].title_short; // load title
+  const link1 = document.querySelector(".firstCol a");
+  link1.href = jsonResfirst.data[randomNum[0]].artist.link; // load link
+
+  // card 2
+  const img2 = document.querySelector(".secondCol img");
+  img2.src = jsonResfirst.data[randomNum[1]].album.cover_big; // load img
+  const album2 = document.querySelector(".secondCol h5");
+  album2.innerText = jsonResfirst.data[randomNum[1]].album.title; // load album
+  const author2 = document.querySelector(".secondCol p");
+  author2.innerText = jsonResfirst.data[randomNum[1]].title_short; // load title
+  const link2 = document.querySelector(".secondCol a");
+  link2.href = jsonResfirst.data[randomNum[1]].artist.link; // load link
+
+  // card 3
+  const img3 = document.querySelector(".thirdCol img");
+  img3.src = jsonResfirst.data[randomNum[2]].album.cover_big; // load img
+  const album3 = document.querySelector(".thirdCol h5");
+  album3.innerText = jsonResfirst.data[randomNum[2]].album.title; // load album
+  const author3 = document.querySelector(".thirdCol p");
+  author3.innerText = jsonResfirst.data[randomNum[2]].title_short; // load title
+  const link3 = document.querySelector(".thirdCol a");
+  link3.href = jsonResfirst.data[randomNum[2]].artist.link; // load link
+
+  // card 4
+  const img4 = document.querySelector(".fourthCol img");
+  img4.src = jsonResfirst.data[randomNum[3]].album.cover_big; // load img
+  const album4 = document.querySelector(".fourthCol h5");
+  album4.innerText = jsonResfirst.data[randomNum[3]].album.title; // load album
+  const author4 = document.querySelector(".fourthCol p");
+  author4.innerText = jsonResfirst.data[randomNum[3]].title_short; // load title
+  const link4 = document.querySelector(".fourthCol a");
+  link4.href = jsonResfirst.data[randomNum[3]].artist.link; // load link
+}
+window.onload = firstfetch();
+
+// selettori usati per far pratica la parte di codice vera inizia dopo
+
 const first = document.querySelector(".firstCol");
 const second = document.querySelector(".secondCol");
 const third = document.querySelector(".thirdCol");
 const fourth = document.querySelector(".fourthCol");
+const trackimg1 = document.querySelector(".trackImg1");
 
-// risolviamo la fetch con il metodo dei .then() e .catch()
+//const testFetchFUn = function () {};
 
-/*cosa faccio quando l'operazione va a buon fine?
-        ok, abbiamo qualcosa!
-        finiremo nel .then() quando l'operazione È FINITA e È ANDATA A BUON FINE
-        qui dentro ho la Response con cui lavorare!
-        la response è il parametro di then!*/
+// prima funzione fetch funzionante!!
 
-/*res è la RESPONSE del SERVER
-        un oggetto con tante proprietà, le più importanti che andremo a valutare
-        sono "ok" e "status"
-        "ok" ci restituisce un booleano con l'outcome dell'operazione
-        "status" ci torna il codice numerico dell'operazione*/
+/* async function getSong() {
+  const response = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=Imagine%20Dragons");
+  console.log(response) // <--- la risposta come stringa non elaborata
 
-//trasformiamo il body in un oggetto SOLO se la chiamata è andata a buon fine!
-//finiremo qui se la chiamata ha contattato il server, ma c'è stato un problema nella risposta!
-const testFetchFUn = function () {
-  fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=queen")
-    .then(function (res) {
-      console.log("questa è la RESPONSE del server!", res);
-      if (res.ok) {
-        return console.log("res.json stampato", res.json()); //<-- un metodo che trasforma lo stream del body in un oggetto!
-      } else {
-        console.log("Qualcosa è andato storto con la nostra chiamata!");
-      }
-    })
-    .then(function (data) {
-      console.log("qua dovrebbe esserci qualcosa",data); // <-- data sono i dati che cercavamo fin dall'inizio! qua manipolo il dom...
-    })
-    .catch(function (err) {
-      console.log("È successo un errore", err);
-    });
-};
-
-async function getSong() {
-    const response = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=Imagine%20Dragons");
-    const data = await response.json();
-    const song = data.data.find((song) => song.title === "Radioactive");
-    const albumCover = song.album.cover_medium;
-    const songNAme = song.title;
-    // document.getElementById("album-cover").src = albumCover;
-    // document.getElementById("song-name").innerText = songName;
+  const jsonRes = await response.json();
+  console.log(jsonRes)                    // <--- la risposta convertita in jason in struttura leggibile
+  const arrayRisposta = jsonRes.data;
+  const primaCanz = arrayRisposta[0];
+  const album = primaCanz.album;
+  const cover_small = album.cover_small; 
+  console.log("coversmall link", cover_small);
+  trackimg1.src = cover_small             // <--- questa è la risoluzione estesa passo dopo passo per esercizio
+  console.log("vittoria!!!!", jsonRes.data[0].album.cover_small);
+  trackimg1.src = jsonRes.data[0].album.cover_small;
 }
-getSong();
+  window.onload = getSong(); */
+
+// VARI TEST PER CAPIRE FETCH
+
+/* const nomeACaso = () =>
+  console.log(
+    "chiamata di fetch per test",
+    fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=dreamTheater")
+  );
+nomeACaso(); */
 
 /* cosa faccio quando l'operazione NON va a buon fine?
-      finiremo nel .catch() quando l'operazione È FINITA ma NON È ANDATA A BUON FINE
-      finiamo qui in una fetch() se abbiamo un errore di connettività, o un errore generico*/
+    finiremo nel .catch() quando l'operazione È FINITA ma NON È ANDATA A BUON FINE
+    finiamo qui in una fetch() se abbiamo un errore di connettività, o un errore generico*/
 
-const nomeACaso = () => console.log("chiamata di fetch per test", fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=dreamTheater"));
-nomeACaso();
+// const gimmesonghete = () => {
+//   const result = fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=queen")
+//     .then((res) => {
+//       if (res.ok) {
+//         return res.json(); // <-- un metodo che trasforma lo stream del body in un oggetto!
+//       } else {
+//         console.log("Qualcosa è andato storto con la nostra chiamata!");
+//       }
+//     })
+//     .then((arrayBrutto) => {
+//       console.log("cosa cavolo sei", arrayBrutto);
+//       console.log("ho trovato la cover");
+//       return arrayBrutto.data[0].album.cover_big; // <---  qua carico il link sull'src
+//     })
+
+//     .catch(function (err) {
+//       console.log("È successo un errore", err);
+//     });
+//   console.log("sei result?", result);
+//   return result;
+// };
+
+// console.log(`la stringa è ${gimmesonghete()}`);
+// console.log("picture", picture);
+// console.log("trackimg", trackimg1.src);
+
+// codice di prova
+/* const song = jsonRes.data.find((song) => song.title === "Radioactive");
+                const albumCover = song.album.cover_medium;
+                const songNAme = song.title;
+                document.getElementById("album-cover").src = albumCover;
+                document.getElementById("song-name").innerText = songNAme;
+              } */
 
 // const countUntilThreePromise = function () {
 //     return new Promise(function (resolve, reject) {
