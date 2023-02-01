@@ -52,17 +52,63 @@ body {
   background-color: red;
 }
 
+h1 {
+  font-size: 5rem;
+  font-weight: 800;
+  text-align: center;
+}
+
 h5 {
   font-size: 1.4rem;
   font-weight: bold;
   text-align: center;
 }
 
-a {
+.card a {
   text-decoration: none;
   color: red;
+  font-size: 1.5rem;
+  font-weight: 900;
+  background-color: black;
+  padding: 5px 10px;
+  border-radius: 9px;
+  border: black solid 2px;
+}
+.card a:hover {
+  background-color: red;
+  color: black;
+  border: black solid 2px;
 }
 
-.card {
+.randomCard {
   height: 500px !important;
+}
+@media (max-width: 770px) {
+  .randomCard {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.preferitCard {
+  width: 90% !important;
+  font-size: 3rem;
+  font-weight: 700;
+}
+.preferitCard h5 {
+  font-size: 4rem;
+  font-weight: 900;
+}
+.preferitCard h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.preferitCard img {
+  width: 100% !important;
+  border-radius: 23px !important;
+}
+.preferitCard a {
+  font-size: 4rem;
+  padding: 25px 30px;
+  border-radius: 25px;
 }/*# sourceMappingURL=app.css.map */

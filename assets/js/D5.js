@@ -1,7 +1,9 @@
-async function firstfetch() {
-  // fetch used on section one
+// Random Card Section1
+
+// fetch used on section2
+async function firstFetch() {
   const fetchSec1 = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=queen");
-  const jsonResfirst = await fetchSec1.json();
+  const jsonResFirst = await fetchSec1.json();
 
 
   // generate random card
@@ -18,45 +20,64 @@ console.log(randomNum);
 
   // card 1
   const img1 = document.querySelector(".firstCol img");
-  img1.src = jsonResfirst.data[randomNum[0]].album.cover_big; // load img
+  img1.src = jsonResFirst.data[randomNum[0]].album.cover_big; // load img
   const album1 = document.querySelector(".firstCol h5");
-  album1.innerText = jsonResfirst.data[randomNum[0]].album.title; // load album
+  album1.innerText = jsonResFirst.data[randomNum[0]].album.title; // load album
   const author1 = document.querySelector(".firstCol p");
-  author1.innerText = jsonResfirst.data[randomNum[0]].title_short; // load title
+  author1.innerText = jsonResFirst.data[randomNum[0]].title_short; // load title
   const link1 = document.querySelector(".firstCol a");
-  link1.href = jsonResfirst.data[randomNum[0]].artist.link; // load link
+  link1.href = jsonResFirst.data[randomNum[0]].artist.link; // load link
 
   // card 2
   const img2 = document.querySelector(".secondCol img");
-  img2.src = jsonResfirst.data[randomNum[1]].album.cover_big; // load img
+  img2.src = jsonResFirst.data[randomNum[1]].album.cover_big; // load img
   const album2 = document.querySelector(".secondCol h5");
-  album2.innerText = jsonResfirst.data[randomNum[1]].album.title; // load album
+  album2.innerText = jsonResFirst.data[randomNum[1]].album.title; // load album
   const author2 = document.querySelector(".secondCol p");
-  author2.innerText = jsonResfirst.data[randomNum[1]].title_short; // load title
+  author2.innerText = jsonResFirst.data[randomNum[1]].title_short; // load title
   const link2 = document.querySelector(".secondCol a");
-  link2.href = jsonResfirst.data[randomNum[1]].artist.link; // load link
+  link2.href = jsonResFirst.data[randomNum[1]].artist.link; // load link
 
   // card 3
   const img3 = document.querySelector(".thirdCol img");
-  img3.src = jsonResfirst.data[randomNum[2]].album.cover_big; // load img
+  img3.src = jsonResFirst.data[randomNum[2]].album.cover_big; // load img
   const album3 = document.querySelector(".thirdCol h5");
-  album3.innerText = jsonResfirst.data[randomNum[2]].album.title; // load album
+  album3.innerText = jsonResFirst.data[randomNum[2]].album.title; // load album
   const author3 = document.querySelector(".thirdCol p");
-  author3.innerText = jsonResfirst.data[randomNum[2]].title_short; // load title
+  author3.innerText = jsonResFirst.data[randomNum[2]].title_short; // load title
   const link3 = document.querySelector(".thirdCol a");
-  link3.href = jsonResfirst.data[randomNum[2]].artist.link; // load link
+  link3.href = jsonResFirst.data[randomNum[2]].artist.link; // load link
 
   // card 4
   const img4 = document.querySelector(".fourthCol img");
-  img4.src = jsonResfirst.data[randomNum[3]].album.cover_big; // load img
+  img4.src = jsonResFirst.data[randomNum[3]].album.cover_big; // load img
   const album4 = document.querySelector(".fourthCol h5");
-  album4.innerText = jsonResfirst.data[randomNum[3]].album.title; // load album
+  album4.innerText = jsonResFirst.data[randomNum[3]].album.title; // load album
   const author4 = document.querySelector(".fourthCol p");
-  author4.innerText = jsonResfirst.data[randomNum[3]].title_short; // load title
+  author4.innerText = jsonResFirst.data[randomNum[3]].title_short; // load title
   const link4 = document.querySelector(".fourthCol a");
-  link4.href = jsonResfirst.data[randomNum[3]].artist.link; // load link
+  link4.href = jsonResFirst.data[randomNum[3]].artist.link; // load link
 }
-window.onload = firstfetch();
+window.onload = firstFetch();
+
+// Preferit Song Card Section2
+
+// fetch used on section2
+async function secondFetch() {
+  const fetchSec2 = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=queen");
+  const jsonResSecond = await fetchSec2.json();
+
+  // preferit song card
+  const preferImg = document.querySelector(".preferitCard img");
+  preferImg.src = jsonResSecond.data[6].album.cover_big; // load img
+  const preferTitle = document.querySelector(".preferitCard h5");
+  preferTitle.innerText = jsonResSecond.data[6].album.title; // load title
+  const preferAlbum = document.querySelector(".preferitCard p");
+  preferAlbum.innerText = jsonResSecond.data[6].title_short; // load album
+  const preferAuthor = document.querySelector(".preferitCard a");
+  preferAuthor.src = jsonResSecond.data[6].artist.link; // load album
+}
+window.onload = secondFetch();
 
 // selettori usati per far pratica la parte di codice vera inizia dopo
 
