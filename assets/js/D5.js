@@ -1,62 +1,87 @@
 // Random Card Section1
 
 // fetch used on section2
+
+const genreGen = ["blues", "metal", "pop", "classic", "country", "rap"];
+
 async function firstFetch() {
-  const fetchSec1 = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=queen");
-  const jsonResFirst = await fetchSec1.json();
+  try {
+    const randomGenre = genreGen[Math.ceil(Math.random() * genreGen.length)];
+    console.log("this time we like: ", randomGenre);
+    const randomGenreFetch = "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + randomGenre;
+    const fetchSec1 = await fetch(randomGenreFetch);
+    const jsonResFirst = await fetchSec1.json();
 
+    console.log(jsonResFirst);
 
-  // generate random card
-  const randomNum = [];
-for (i = 0; i < 4; i++) {
-  let checker = Math.floor(Math.random() * 24); // <--- potrei rendere dinamico il numero in base al fetch mettendo una variabile al post di 24
-  while (randomNum.includes(checker)) {
-    checker = Math.floor(Math.random() * 24); // <--- potrei rendere dinamico il numero in base al fetch mettendo una variabile al post di 24
+    // generate random card
+    const randomNum = [];
+    const randomNumFunction = () => {
+      for (i = 0; i < 4; i++) {
+        let checker = Math.floor(Math.random() * 24);
+        while (randomNum.includes(checker)) {
+          console.log(i);
+          checker = Math.floor(Math.random() * 24);
+        }
+        randomNum[i] = checker;
+      }
+    };
+    randomNumFunction();
+    console.log(randomNum);
+
+    // check if i don't show same artist name
+    
+    /* while (
+      jsonResFirst.data[0].artist.name === jsonResFirst.data[1].artist.name ||
+      jsonResFirst.data[1].artist.name === jsonResFirst.data[2].artist.name ||
+      jsonResFirst.data[2].artist.name === jsonResFirst.data[3].artist.name
+    ) {
+      firstFetch();
+    } */
+    // non funziona sempre... non capisco perchè mi fa fallire il fetch... richiede troppo calcolo e rallenta la richiesta oppure è sbagliata la logica?
+
+    // card 1
+    const img1 = document.querySelector(".firstCol img");
+    img1.src = jsonResFirst.data[randomNum[0]].album.cover_big; // load img
+    const album1 = document.querySelector(".firstCol h5");
+    album1.innerText = jsonResFirst.data[randomNum[0]].title_short; // load short title
+    const author1 = document.querySelector(".firstCol p");
+    author1.innerText = jsonResFirst.data[randomNum[0]].artist.name; // load artist name
+    const link1 = document.querySelector(".firstCol a");
+    link1.href = jsonResFirst.data[randomNum[0]].artist.link; // load link
+
+    // card 2
+    const img2 = document.querySelector(".secondCol img");
+    img2.src = jsonResFirst.data[randomNum[1]].album.cover_big; // load img
+    const album2 = document.querySelector(".secondCol h5");
+    album2.innerText = jsonResFirst.data[randomNum[1]].title_short; // load short title
+    const author2 = document.querySelector(".secondCol p");
+    author2.innerText = jsonResFirst.data[randomNum[1]].artist.name; // load artist name
+    const link2 = document.querySelector(".secondCol a");
+    link2.href = jsonResFirst.data[randomNum[1]].artist.link; // load link
+
+    // card 3
+    const img3 = document.querySelector(".thirdCol img");
+    img3.src = jsonResFirst.data[randomNum[2]].album.cover_big; // load img
+    const album3 = document.querySelector(".thirdCol h5");
+    album3.innerText = jsonResFirst.data[randomNum[2]].title_short; // load short title
+    const author3 = document.querySelector(".thirdCol p");
+    author3.innerText = jsonResFirst.data[randomNum[2]].artist.name; // load artist name
+    const link3 = document.querySelector(".thirdCol a");
+    link3.href = jsonResFirst.data[randomNum[2]].artist.link; // load link
+
+    // card 4
+    const img4 = document.querySelector(".fourthCol img");
+    img4.src = jsonResFirst.data[randomNum[3]].album.cover_big; // load img
+    const album4 = document.querySelector(".fourthCol h5");
+    album4.innerText = jsonResFirst.data[randomNum[3]].title_short; // load short title
+    const author4 = document.querySelector(".fourthCol p");
+    author4.innerText = jsonResFirst.data[randomNum[3]].artist.name; // load artist name
+    const link4 = document.querySelector(".fourthCol a");
+    link4.href = jsonResFirst.data[randomNum[3]].artist.link; // load link
+  } catch (error) {
+    console.error("fetch failed, error: ", error);
   }
-  randomNum[i] = checker;
-}
-console.log(randomNum);
-
-
-  // card 1
-  const img1 = document.querySelector(".firstCol img");
-  img1.src = jsonResFirst.data[randomNum[0]].album.cover_big; // load img
-  const album1 = document.querySelector(".firstCol h5");
-  album1.innerText = jsonResFirst.data[randomNum[0]].album.title; // load album
-  const author1 = document.querySelector(".firstCol p");
-  author1.innerText = jsonResFirst.data[randomNum[0]].title_short; // load title
-  const link1 = document.querySelector(".firstCol a");
-  link1.href = jsonResFirst.data[randomNum[0]].artist.link; // load link
-
-  // card 2
-  const img2 = document.querySelector(".secondCol img");
-  img2.src = jsonResFirst.data[randomNum[1]].album.cover_big; // load img
-  const album2 = document.querySelector(".secondCol h5");
-  album2.innerText = jsonResFirst.data[randomNum[1]].album.title; // load album
-  const author2 = document.querySelector(".secondCol p");
-  author2.innerText = jsonResFirst.data[randomNum[1]].title_short; // load title
-  const link2 = document.querySelector(".secondCol a");
-  link2.href = jsonResFirst.data[randomNum[1]].artist.link; // load link
-
-  // card 3
-  const img3 = document.querySelector(".thirdCol img");
-  img3.src = jsonResFirst.data[randomNum[2]].album.cover_big; // load img
-  const album3 = document.querySelector(".thirdCol h5");
-  album3.innerText = jsonResFirst.data[randomNum[2]].album.title; // load album
-  const author3 = document.querySelector(".thirdCol p");
-  author3.innerText = jsonResFirst.data[randomNum[2]].title_short; // load title
-  const link3 = document.querySelector(".thirdCol a");
-  link3.href = jsonResFirst.data[randomNum[2]].artist.link; // load link
-
-  // card 4
-  const img4 = document.querySelector(".fourthCol img");
-  img4.src = jsonResFirst.data[randomNum[3]].album.cover_big; // load img
-  const album4 = document.querySelector(".fourthCol h5");
-  album4.innerText = jsonResFirst.data[randomNum[3]].album.title; // load album
-  const author4 = document.querySelector(".fourthCol p");
-  author4.innerText = jsonResFirst.data[randomNum[3]].title_short; // load title
-  const link4 = document.querySelector(".fourthCol a");
-  link4.href = jsonResFirst.data[randomNum[3]].artist.link; // load link
 }
 window.onload = firstFetch();
 

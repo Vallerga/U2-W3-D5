@@ -81,15 +81,8 @@ h5 {
 }
 
 .randomCard {
-  height: 500px !important;
+  width: 100% !important;
 }
-@media (max-width: 770px) {
-  .randomCard {
-    width: 100% !important;
-    height: 100% !important;
-  }
-}
-
 .preferitCard {
   width: 90% !important;
   font-size: 3rem;
