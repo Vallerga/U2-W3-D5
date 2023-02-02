@@ -1,12 +1,12 @@
-// Random Card Section1
+// RANDOM CARD SECTION 1
 
-// fetch used on section2
+// fetch used on section1
 
 const genreGen = ["blues", "metal", "pop", "classic", "country", "rap"];
 
 async function firstFetch() {
   try {
-    const randomGenre = genreGen[Math.ceil(Math.random() * genreGen.length)];
+    const randomGenre = genreGen[Math.ceil(Math.random() * genreGen.length - 1)];
     console.log("this time we like: ", randomGenre);
     const randomGenreFetch = "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + randomGenre;
     const fetchSec1 = await fetch(randomGenreFetch);
@@ -29,7 +29,7 @@ async function firstFetch() {
     randomNumFunction();
     console.log(randomNum);
 
-    // check if i don't show same artist name
+    // that code check if i don't show same artist name
     
     /* while (
       jsonResFirst.data[0].artist.name === jsonResFirst.data[1].artist.name ||
@@ -37,8 +37,10 @@ async function firstFetch() {
       jsonResFirst.data[2].artist.name === jsonResFirst.data[3].artist.name
     ) {
       firstFetch();
+
     } */
-    // non funziona sempre... non capisco perchè mi fa fallire il fetch... richiede troppo calcolo e rallenta la richiesta oppure è sbagliata la logica?
+    /* NON FUNZIONA A VOLTE E CRASHA LA PAGINA!!!!
+    non capisco perchè mi fa fallire il fetch... richiede troppo calcolo e rallenta la richiesta oppure è sbagliata la logica?*/
 
     // card 1
     const img1 = document.querySelector(".firstCol img");
@@ -80,15 +82,16 @@ async function firstFetch() {
     const link4 = document.querySelector(".fourthCol a");
     link4.href = jsonResFirst.data[randomNum[3]].artist.link; // load link
   } catch (error) {
-    console.error("fetch failed, error: ", error);
+    console.error("fetch Section1 failed, error: ", error);
   }
 }
 window.onload = firstFetch();
 
-// Preferit Song Card Section2
+// PREFERIT SONG CARD SECTION 2
 
 // fetch used on section2
 async function secondFetch() {
+  try {
   const fetchSec2 = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=queen");
   const jsonResSecond = await fetchSec2.json();
 
@@ -101,10 +104,44 @@ async function secondFetch() {
   preferAlbum.innerText = jsonResSecond.data[6].title_short; // load album
   const preferAuthor = document.querySelector(".preferitCard a");
   preferAuthor.src = jsonResSecond.data[6].artist.link; // load album
+} catch (error) {
+  console.error("fetch Section2 failed, error: ", error);
+}
 }
 window.onload = secondFetch();
 
-// selettori usati per far pratica la parte di codice vera inizia dopo
+// CAROUSEL SECTION 3
+
+async function CarouselFetch() {
+  try {
+    // 6 fetch used on section3 
+    const carouselSongArr = ['bonjovi', 'queen', 'whitneyhouston', 'tinaturner', 'ironmaiden', 'fabriziodeandre'];
+    for(let i = 0; i < carouselSongArr.length; i++) { 
+      const carouselFetch = "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + carouselSongArr[i];
+      const fetchSec3 = await fetch(carouselFetch);
+      const jsonResThird = await fetchSec3.json();
+      const addMePreferitSong = document.querySelector(".addMePreferitSong");
+      if (i === 0) {
+      addMePreferitSong.innerHTML = 
+      addMePreferitSong.innerHTML +
+      `<div class="carousel-item active">
+      <img src='${jsonResThird.data[i].album.cover_big}' class="d-block w-100" alt="album">
+    </div>`
+    } else {
+      addMePreferitSong.innerHTML = 
+      addMePreferitSong.innerHTML +
+      `<div class="carousel-item">
+      <img src='${jsonResThird.data[i].album.cover_big}' class="d-block w-100" alt="album">
+    </div>`
+    }
+    }
+  } catch (error) {
+    console.error("fetch Section3 failed, error: ", error);
+  }
+  }
+  window.onload = CarouselFetch()
+
+// selettori usati per far pratica la parte di codice vera è finita
 
 const first = document.querySelector(".firstCol");
 const second = document.querySelector(".secondCol");
